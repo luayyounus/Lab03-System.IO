@@ -1,12 +1,50 @@
 ﻿using System;
 using System.ComponentModel.Design;
+using System.IO;
 
 namespace WordGuessGame
 {
     class Game
     {
+        /// <summary>
+        /// This method creates the passed in file path or adds to it if the file exists. Then it asks the user to input a word to be added to the list.
+        /// </summary>
+        /// <param name="filePath"></param>
+        static void AddWordToList(string filePath)
+        {
+            Console.WriteLine($" Type in the word you want to add to your guessing list: ");
+            string word = Console.ReadLine();
+            
+            using (StreamWriter wordList = new StreamWriter(filePath))
+            {
+                try
+                {
+                    wordList.Write(word);
+                }
+                catch (FileNotFoundException e)
+                {
+                    Console.WriteLine(e.Message);
+                    throw;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    throw;
+                }
+                finally
+                {
+                    Console.WriteLine($" --> Added {word} to the guess words list <--");
+
+                }
+            }
+        }
+
+        /// <summary>
+        /// Admin access to allow Josie to Add/Delete/View guess words.
+        /// </summary>
         static void AdminAccess()
         {
+            string path = "GuessingList.txt";
             bool adminIsDone = false;
             while(!adminIsDone)
             {
@@ -22,7 +60,7 @@ namespace WordGuessGame
                         //ViewListOfWords();
                         break;
                     case "2":
-                        //AddWordToList();
+                        AddWordToList(path);
                         break;
                     case "3":
                         //DeleteWordFromList();
