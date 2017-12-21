@@ -5,7 +5,6 @@ namespace WordGuessGame
 {
     class Game
     {
-
         /// <summary>
         /// This method presents the interface to the user with a welcome message and invoking the menu options.
         /// </summary>
@@ -13,9 +12,12 @@ namespace WordGuessGame
         {
             Console.WriteLine("\n----------------------- Welcome to Word Guess Game! --------------------------" +
                               "\n In this game you have to guess the right word by entering a single character at a time" +
-                              "\n When you try ten characters before guessing the mystery phrase, you lose the round." +
-                              "\n---------------------- Select an option from the Menu ------------------------");
-            //GameMenu();
+                              "\n When you try ten characters before guessing the mystery phrase, you lose the round.");
+            bool gameOn = true;
+            while (gameOn)
+            {
+                //gameOn = GameMenu();
+            }
             Console.Read();
         }
 
