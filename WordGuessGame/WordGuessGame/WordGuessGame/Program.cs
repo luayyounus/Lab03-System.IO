@@ -5,30 +5,57 @@ namespace WordGuessGame
 {
     class Game
     {
+        static void AdminAccess()
+        {
+            bool adminIsDone = false;
+            while(!adminIsDone)
+            {
+                Console.WriteLine("\n Select an option from the Menu" +
+                                  "\n 1) View List of Words" +
+                                  "\n 2) Add word" +
+                                  "\n 3) Delete word" +
+                                  "\n 4) Go back to Main Menu");
+                string userInput = Console.ReadLine();
+                switch (userInput)
+                {
+                    case "1":
+                        //ViewListOfWords();
+                        break;
+                    case "2":
+                        //AddWordToList();
+                        break;
+                    case "3":
+                        //DeleteWordFromList();
+                        break;
+                    case "4":
+                        adminIsDone = true;
+                        break;
+                }
+            }
+        }
+
         /// <summary>
         /// This method shows a menu of options to the user to start the game, modify the database, exit the application.
         /// </summary>
         /// <returns>Returns true if the user inputs incorrect option</returns>
         static bool GameMenu()
         {
-            Console.WriteLine("\n---------------------- Select an option from the Menu ------------------------" +
-                              "\n---------------------- 1) Start!" +
-                              "\n---------------------- 2) Admin Access" +
-                              "\n---------------------- 3) Exit");
+            Console.WriteLine("\n Select an option from the Menu" +
+                              "\n 1) Start!" +
+                              "\n 2) Admin Access" +
+                              "\n 3) Exit");
             string userInput = Console.ReadLine();
-            if (userInput == "1")
+            switch (userInput)
             {
-                // Start();
+                case "1":
+                    //Start();
+                    break;
+                case "2":
+                    AdminAccess();
+                    break;
+                case "3":
+                    return false;
             }
-            if (userInput == "2")
-            {
-                // AdminAccess();
-            }
-            if (userInput == "3")
-            {
-                return false;
-            }
-            Console.WriteLine("Please Select a correct number from the menu");
             return true;
         }
 
@@ -43,7 +70,7 @@ namespace WordGuessGame
             bool gameOn = true;
             while (gameOn)
             {
-                //gameOn = GameMenu();
+                gameOn = GameMenu();
             }
             Console.Read();
         }
