@@ -14,29 +14,32 @@ namespace WordGuessGame
         {
             Console.WriteLine($" Type in the word you want to add to your guessing list: ");
             string word = Console.ReadLine();
-            
-            using (StreamWriter wordList = new StreamWriter(filePath))
-            {
-                try
-                {
-                    wordList.Write(word);
-                }
-                catch (FileNotFoundException e)
-                {
-                    Console.WriteLine(e.Message);
-                    throw;
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
-                    throw;
-                }
-                finally
-                {
-                    Console.WriteLine($" --> Added {word} to the guess words list <--");
 
+            try
+            {
+                using (StreamWriter wordList = new StreamWriter(filePath))
+                {
+                    try
+                    {
+                        wordList.Write(word);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.Message);
+                        throw;
+                    }
+                    finally
+                    {
+                        Console.WriteLine($" --> Added {word} to the guess words list <--");
+                    }
                 }
             }
+            catch (FileNotFoundException e)
+            {
+                Console.WriteLine(e.Message);
+                throw;
+            }
+            
         }
 
         /// <summary>
