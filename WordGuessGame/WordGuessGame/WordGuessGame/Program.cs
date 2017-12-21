@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel.Design;
 using System.IO;
 
 namespace WordGuessGame
@@ -35,12 +34,15 @@ namespace WordGuessGame
         /// <param name="filePath"></param>
         static void AddWordToList(string filePath)
         {
-            Console.WriteLine($" Type in the word you want to add to your guessing list: ");
+            Console.WriteLine(" Type in the word you want to add to your guessing list ");
             string word = Console.ReadLine();
-
+            if (!File.Exists(filePath))
+            {
+                File.Create(filePath);
+            }
             try
             {
-                using (StreamWriter wordList = new StreamWriter(filePath))
+                using (StreamWriter wordList = File.AppendText(filePath))
                 {
                     try
                     {
@@ -89,7 +91,7 @@ namespace WordGuessGame
                         AddWordToList(path);
                         break;
                     case "3":
-                        //DeleteWordFromList();
+                        //DeleteWordFromList(path);
                         break;
                     case "4":
                         adminIsDone = true;
