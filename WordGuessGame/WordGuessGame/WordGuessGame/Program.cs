@@ -6,6 +6,33 @@ namespace WordGuessGame
     class Game
     {
         /// <summary>
+        /// This method shows a menu of options to the user to start the game, modify the database, exit the application.
+        /// </summary>
+        /// <returns>Returns true if the user inputs incorrect option</returns>
+        static bool GameMenu()
+        {
+            Console.WriteLine("\n---------------------- Select an option from the Menu ------------------------" +
+                              "\n---------------------- 1) Start!" +
+                              "\n---------------------- 2) Admin Access" +
+                              "\n---------------------- 3) Exit");
+            string userInput = Console.ReadLine();
+            if (userInput == "1")
+            {
+                // Start();
+            }
+            if (userInput == "2")
+            {
+                // AdminAccess();
+            }
+            if (userInput == "3")
+            {
+                return false;
+            }
+            Console.WriteLine("Please Select a correct number from the menu");
+            return true;
+        }
+
+        /// <summary>
         /// This method presents the interface to the user with a welcome message and invoking the menu options.
         /// </summary>
         static void StartGuessGame()
