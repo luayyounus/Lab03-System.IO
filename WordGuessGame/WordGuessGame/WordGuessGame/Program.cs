@@ -7,6 +7,29 @@ namespace WordGuessGame
     class Game
     {
         /// <summary>
+        /// View list of guess words entered by the admin for the guessing Game.
+        /// </summary>
+        /// <param name="filePath"></param>
+        static void ViewListOfWords(string filePath)
+        {
+            try
+            {
+                using (StreamReader sr = File.OpenText(filePath))
+                {
+                    string word = "";
+                    while ((word = sr.ReadLine()) != null)
+                    {
+                        Console.WriteLine(word);
+                    }
+                }
+            }
+            catch (FileNotFoundException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+
+        /// <summary>
         /// This method creates the passed in file path or adds to it if the file exists. Then it asks the user to input a word to be added to the list.
         /// </summary>
         /// <param name="filePath"></param>
@@ -21,7 +44,7 @@ namespace WordGuessGame
                 {
                     try
                     {
-                        wordList.Write(word);
+                        wordList.WriteLine(word);
                     }
                     catch (Exception e)
                     {
@@ -60,7 +83,7 @@ namespace WordGuessGame
                 switch (userInput)
                 {
                     case "1":
-                        //ViewListOfWords();
+                        ViewListOfWords(path);
                         break;
                     case "2":
                         AddWordToList(path);
