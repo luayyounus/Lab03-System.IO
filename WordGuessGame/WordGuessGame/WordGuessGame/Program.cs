@@ -53,6 +53,76 @@ namespace WordGuessGame
             Console.WriteLine();
         }
 
+        /// <summary>
+        /// This method validates file existance in directory. Call random method to get random word from guess list. Evaluate users input and keep track of their progress. Check for invalid keyboard key entries. 
+        /// </summary>
+        /// <param name="filePath">Name of file in system.</param>
+        private static void Start(string filePath)
+        {
+            // Checking if the path is valid
+            if (!File.Exists(filePath))
+            {
+                Console.WriteLine("\n The guess list is empty, enter the admin page to add words first.");
+                return;
+            }
+            Console.WriteLine("\n Guess the following word\n ");
+
+            // Get random word
+            string actualWord = RandomGuessWord(filePath);
+
+            // Initialize progress array with length of the guess word
+            char[] currentProgress = new char[actualWord.Length];
+
+            // Number of correct characters so far
+            int correctChars = 0;
+
+            // History for wrong entries
+            char[] history = new char[26];
+            int historyCounter = 0;
+
+            // Presenting length of guess word to use with underscores once every time the user starts a new game
+            for (int i = 0; i < currentProgress.Length; i++)
+                currentProgress[i] = '_';
+          
+            // Fresh Start - No Progress
+            ShowProgress(currentProgress, history);
+
+            // Condition stops when user guesses all characters
+            while (correctChars != actualWord.Length)
+            {
+                ConsoleKeyInfo key = Console.ReadKey();
+
+                // Checking for the Enter key to prevent user from inputting a NULL value
+                if (key.Key == ConsoleKey.Enter)
+                {
+                    Console.WriteLine("\n Please use Alphabetics or Numbers");
+                }
+                else
+                {
+                    // Get the character from the key pressed on the keyboard
+                    char userInput = char.ToUpper(key.KeyChar);
+
+                    // Check if user input matches a character in the acutal guess word
+                    if (actualWord.Contains(userInput) && !currentProgress.Contains(userInput))
+                    {
+                        int tempIndex = actualWord.IndexOf(userInput);
+                        currentProgress[tempIndex] = userInput;
+                        correctChars++;
+                    }
+                    else
+                    {
+                        // Adding characters to history
+                        if (!history.Contains(userInput) && !currentProgress.Contains(userInput))
+                        {
+                            history[historyCounter++] = userInput;
+                        }
+                    }
+                }
+                // Player progress every time they press a new key
+                ShowProgress(currentProgress, history);
+            }
+            Console.WriteLine("\n You Won!\n");
+        }
 
         /// <summary>
         /// View list of guess words entered by the admin for the guessing Game.
