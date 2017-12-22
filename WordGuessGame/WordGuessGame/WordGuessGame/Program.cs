@@ -28,6 +28,33 @@ namespace WordGuessGame
         }
 
         /// <summary>
+        /// //Show progress of current game every time the user makes a new letter guess.
+        /// </summary>
+        /// <param name="progress">Character list of Letters and dashes based on user progress.</param>
+        /// <param name="history">Previous wrong entries by the user.</param>
+        private static void ShowProgress(char[] progress, char[] history)
+        {
+            // Presenting the user progress letters/dashes
+            Console.Write("\n Current Progress:   ");
+            foreach (char c in progress)
+            {
+                Console.Write($"{c} ");
+            }
+
+            // Checking if the history is empty to hide and show history log
+            if (history[0] != '\0')
+            {
+                Console.Write("   History: ");
+                foreach (var c in history)
+                {
+                    Console.Write($"{c} ");
+                }
+            }
+            Console.WriteLine();
+        }
+
+
+        /// <summary>
         /// View list of guess words entered by the admin for the guessing Game.
         /// </summary>
         /// <param name="filePath"></param>
