@@ -9,7 +9,7 @@ namespace WordGuessGame
         /// View list of guess words entered by the admin for the guessing Game.
         /// </summary>
         /// <param name="filePath"></param>
-        static void ViewListOfWords(string filePath)
+        private static void ViewListOfWords(string filePath)
         {
             try
             {
@@ -32,7 +32,7 @@ namespace WordGuessGame
         /// This method creates the passed in file path or adds to it if the file exists. Then it asks the user to input a word to be added to the list.
         /// </summary>
         /// <param name="filePath"></param>
-        static void AddWordToList(string filePath)
+        private static void AddWordToList(string filePath)
         {
             Console.WriteLine(" Type in the word you want to add to your guessing list");
             string word = Console.ReadLine().ToUpper();
@@ -64,13 +64,46 @@ namespace WordGuessGame
                 Console.WriteLine(e.Message);
                 throw;
             }
+        }
 
+        /// <summary>
+        /// Delete word from guess list.
+        /// </summary>
+        /// <param name="filePath"></param>
+        private static void DeleteWordFromList(string filePath)
+        {
+            Console.WriteLine(" Type in the word you want to delete ");
+            string word = Console.ReadLine().ToUpper();
+
+            string tempFile = Path.GetTempFileName();
+
+            try
+            {
+                using (StreamReader sr = new StreamReader(filePath))
+                using (StreamWriter sw = new StreamWriter(tempFile))
+                {
+                    string line;
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        if (line != word)
+                            sw.WriteLine(line);
+                    }
+                }
+                
+                File.Delete(filePath);
+                File.Move(tempFile, filePath);
+            }
+            catch (FileNotFoundException e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         /// <summary>
         /// Admin access to allow Josie to Add/Delete/View guess words.
         /// </summary>
-        static void AdminAccess()
+        private static void AdminAccess()
         {
             string path = "GuessingList.txt";
             bool adminIsDone = false;
@@ -91,7 +124,7 @@ namespace WordGuessGame
                         AddWordToList(path);
                         break;
                     case "3":
-                        //DeleteWordFromList(path);
+                        DeleteWordFromList(path);
                         break;
                     case "4":
                         adminIsDone = true;
@@ -104,7 +137,7 @@ namespace WordGuessGame
         /// This method shows a menu of options to the user to start the game, modify the database, exit the application.
         /// </summary>
         /// <returns>Returns true if the user inputs incorrect option</returns>
-        static bool GameMenu()
+        private static bool GameMenu()
         {
             Console.WriteLine("\n Select an option from the Menu" +
                               "\n 1) Start!" +
@@ -128,7 +161,7 @@ namespace WordGuessGame
         /// <summary>
         /// This method presents the interface to the user with a welcome message and invoking the menu options.
         /// </summary>
-        static void StartGuessGame()
+        private static void StartGuessGame()
         {
             Console.WriteLine("\n----------------------- Welcome to Word Guess Game! --------------------------" +
                               "\n In this game you have to guess the right word by entering a single character at a time" +
@@ -145,7 +178,7 @@ namespace WordGuessGame
         /// The main point entry for the application program.cs ... This starts the game by calling the Start method.
         /// </summary>
         /// <param name="args"></param>
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             StartGuessGame();
         }
