@@ -1,10 +1,32 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
+using System.Text;
 
 namespace WordGuessGame
 {
     class Game
     {
+        /// <summary>
+        /// This method returns a random name from the guess words list.
+        /// </summary>
+        /// <param name="filePath">Name of file in system.</param>
+        /// <returns>Returns random name.</returns>
+        private static string RandomGuessWord(string filePath)
+        {
+            //Reading and counting number of lines in file
+            var wordFile = File.ReadAllLines(filePath);
+            int lineCount = wordFile.Length;
+
+            //Randomizing a number of maximum lines count from the filepath
+            Random random = new Random();
+            int randomNumber = random.Next(lineCount);
+
+            //Getting a word from a specific line
+            string randomGuessWord = wordFile.Skip(randomNumber).Take(1).First();
+            return randomGuessWord;
+        }
+
         /// <summary>
         /// View list of guess words entered by the admin for the guessing Game.
         /// </summary>
@@ -16,6 +38,8 @@ namespace WordGuessGame
                 using (StreamReader sr = File.OpenText(filePath))
                 {
                     string word = "";
+                    
+                    // Read every line in file and present it on the console screen
                     while ((word = sr.ReadLine()) != null)
                     {
                         Console.WriteLine(word);
@@ -36,12 +60,13 @@ namespace WordGuessGame
         {
             Console.WriteLine(" Type in the word you want to add to your guessing list");
             string word = Console.ReadLine().ToUpper();
+
             if (!File.Exists(filePath))
-            {
                 File.Create(filePath);
-            }
+
             try
             {
+                // Adding a new word to the guess word list by appending it on a new line
                 using (StreamWriter wordList = File.AppendText(filePath))
                 {
                     try
@@ -73,8 +98,10 @@ namespace WordGuessGame
         private static void DeleteWordFromList(string filePath)
         {
             Console.WriteLine(" Type in the word you want to delete ");
+
             string word = Console.ReadLine().ToUpper();
 
+            // Creating a temp file that we use to replace the original file after deleting
             string tempFile = Path.GetTempFileName();
 
             try
@@ -83,6 +110,8 @@ namespace WordGuessGame
                 using (StreamWriter sw = new StreamWriter(tempFile))
                 {
                     string line;
+                    
+                    // Matching line string with user input for deleting
                     while ((line = sr.ReadLine()) != null)
                     {
                         if (line != word)
@@ -90,7 +119,10 @@ namespace WordGuessGame
                     }
                 }
                 
+                // Delete the file used with Reader
                 File.Delete(filePath);
+
+                // Replacing the new file with previous Read file 
                 File.Move(tempFile, filePath);
             }
             catch (FileNotFoundException e)
@@ -103,9 +135,8 @@ namespace WordGuessGame
         /// <summary>
         /// Admin access to allow Josie to Add/Delete/View guess words.
         /// </summary>
-        private static void AdminAccess()
+        private static void AdminAccess(string filePath)
         {
-            string path = "GuessingList.txt";
             bool adminIsDone = false;
             while (!adminIsDone)
             {
@@ -114,17 +145,18 @@ namespace WordGuessGame
                                   "\n 2) Add word" +
                                   "\n 3) Delete word" +
                                   "\n 4) Go back to Main Menu");
+
                 string userInput = Console.ReadLine();
                 switch (userInput)
                 {
                     case "1":
-                        ViewListOfWords(path);
+                        ViewListOfWords(filePath);
                         break;
                     case "2":
-                        AddWordToList(path);
+                        AddWordToList(filePath);
                         break;
                     case "3":
-                        DeleteWordFromList(path);
+                        DeleteWordFromList(filePath);
                         break;
                     case "4":
                         adminIsDone = true;
@@ -144,13 +176,16 @@ namespace WordGuessGame
                               "\n 2) Admin Access" +
                               "\n 3) Exit");
             string userInput = Console.ReadLine();
+
+            string path = "GuessingList.txt";
+
             switch (userInput)
             {
                 case "1":
-                    //Start();
+                    Start(path);
                     break;
                 case "2":
-                    AdminAccess();
+                    AdminAccess(path);
                     break;
                 case "3":
                     return false;
@@ -171,7 +206,6 @@ namespace WordGuessGame
             {
                 gameOn = GameMenu();
             }
-            Console.Read();
         }
 
         /// <summary>
