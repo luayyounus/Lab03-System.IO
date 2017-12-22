@@ -1,57 +1,28 @@
-![cf](http://i.imgur.com/7v5ASc8.png) Lab 3 : System.IO - Word Guess Game
-=====================================
+# Word Guess Game
 
-## To Submit this Assignment
-- fork this repository
-- create a new branch named `lab01-`; + `<your name>` **e.g.** `lab03-amanda`
-- write your code
-- push to your repository
-- submit a pull request to this repository
-- submit a link to your PR in canvas
-- Include a Readme.md (contents described below)
+**Author**: Luay Younus
+**Version**: 1.0
 
-## Directions
-The directions below mock what an actual client requirements document may contain. It is your job, as a developer, to interpret these directions and 
-create a program based on what is stated below.
+## Overview
+This is a console application game. It allows a user to guess a word from a random list of words. The user have the right to be the admin and add/delete words from the guess list.
 
-Josie Cat has requested that a "Word Guess Game" be built. The main idea of the game is she must guess what a mystery word is by inputitng 
-either (1) letter or a sequence of letters at a time. The game should save all of her guesses (both correct and incorrect) throughout each session of the game,
-along with the ability to show her how many letters out of the word she has guessed correctly. 
+## Requirements to run the Application
+- [Visual Studio 2017 Community with .NET Core 2.0 SDK](https://www.microsoft.com/net/core#windowscmd)
+- [GitBash / Terminal](https://git-scm.com/downloads) or [GitHub Extension for Visual Studio](https://visualstudio.github.com)
 
-Each time a new game session starts, the mystery word chosen should 
-come from an external text file that randomly selects one of the words listed. This file should be editable by Josie so that 
-she may view, add, and delete words as she wishes. She expects the game to have a simple user interface that is easy to navigate. 
+## Getting Started
+1. Clone the repository to your local machine.
+2. Cd into the application directory where the `AppName.sln` exist.
+3. Open the application using `Open/Start AppName.sln`.
+4. Once Visual Studio is opened, you can Run the application by clicking on the Play button <img src="https://github.com/luayyounus/Lab02-Unit-Testing/blob/Lab02-Luay/WarCardGame/play-button.jpg" width="16"> and the console app will run.
+5. Press `Enter` to move on in the application.
 
-Using everything you've learned and researched up to this point, create a word guess
-game that will meet all of the requiements described in the user story above. 
+## Game Experience
+- Home navigation that helps the user to pick from a list of numbers.
+- Starting the game will provide the user with a set of Underscores to help determine how many characters are needed to guess the word.
+- A history list is provided for the previous wrong guesses.
 
-
-## Program Components
-- The program (should) contain the following
-    - Methods for each action (Home navigation, View words in the text file, add a word to the text file, Remove words from a text file, exit the game, start a new game)
-    - When playing a game, you should bring in all the words that exist in the text file, and *randomly* select one of the words to output to the conole for the user to guess
-    - You should have a record the letters they have attempted so far
-    - If they guess a correct letter, display that letter in the console for them to refer back to when making guesses (i.e. C _ T S )
-    - Errors should be handled through Exception handling
-    - You may use any shortcuts or 'helper' methods in this project. Do not create external classes to accomplish this task.
-
-
-## ReadMe
-A README is a module consumer's first -- and maybe only -- look into your creation. The consumer wants a module to fulfill their need, so you must explain exactly what need your module fills, and how effectively it does so.
-<br />
-Your job is to
-1. tell them what it is (with context)
-2. show them what it looks like in action
-3. show them how they use it
-4. tell them any other relevant details
-<br />
-
-This is ***your*** job. It's up to the module creator to prove that their work is a shining gem in the sea of slipshod modules. 
-Since so many developers' eyes will find their way to your README before anything else, quality here is your public-facing measure of your work.
-
-<br /> Refer to the sample-README in the class repo for an example. 
-- [Reference](https://github.com/noffle/art-of-readme)
-
-## Rubric
-- 7pts: Program meets all requirements described in Lab directions
-- 3pts: Code meets industry standards
+- Admin view is also offered which allows the user/creator to:-
+1. View Guess Word List
+2. Add a new word to the list
+3. Delete a word from the list
