@@ -34,8 +34,8 @@ namespace WordGuessGame
         /// <param name="filePath"></param>
         static void AddWordToList(string filePath)
         {
-            Console.WriteLine(" Type in the word you want to add to your guessing list ");
-            string word = Console.ReadLine();
+            Console.WriteLine(" Type in the word you want to add to your guessing list");
+            string word = Console.ReadLine().ToUpper();
             if (!File.Exists(filePath))
             {
                 File.Create(filePath);
@@ -64,7 +64,7 @@ namespace WordGuessGame
                 Console.WriteLine(e.Message);
                 throw;
             }
-            
+
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace WordGuessGame
         {
             string path = "GuessingList.txt";
             bool adminIsDone = false;
-            while(!adminIsDone)
+            while (!adminIsDone)
             {
                 Console.WriteLine("\n Select an option from the Menu" +
                                   "\n 1) View List of Words" +
