@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace GuessGame
 {
@@ -24,8 +25,47 @@ namespace GuessGame
             bool gameOn = true;
             while (gameOn)
             {
-                //gameOn = ShowGameMenu();
+                gameOn = ShowGameMenu();
             }
+        }
+
+        /// <summary>
+        /// This method shows a menu of options to the user to start the game, modify the database, exit the application.
+        /// </summary>
+        /// <returns>Returns true if the user finished the game or inputs incorrect option.</returns>
+        private static bool ShowGameMenu()
+        {
+            Console.WriteLine("\n Select an option from the Menu" +
+                              "\n 1) Start!" +
+                              "\n 2) Admin Access" +
+                              "\n 3) Exit");
+
+            string userInput = Console.ReadLine();
+
+            // File name that includes the guess words list to read from and write to later using streams.
+            string wordsFilePath = "GuessingList.txt";
+
+            // Switching over the user choice.
+            switch (userInput)
+            {
+                case "1":
+                    // Checing if file exists to start the get a random guess word and start the game.
+                    if (!File.Exists(wordsFilePath))
+                    {
+                        Console.WriteLine(" No words available. Access the admin page to add words.");
+                        return true;
+                    }
+
+                    //string randomWord = GetRandomGuessWord(wordsFilePath);
+                    //StartGame(randomWord);
+                    break;
+                case "2":
+                    //AdminAccess(wordsFilePath);
+                    break;
+                case "3":
+                    return false;
+            }
+            return true;
         }
     }
 }
