@@ -249,7 +249,7 @@ namespace GuessGame
                         //ViewListOfWords(filePath);
                         break;
                     case "2":
-                        //AddWordToList(filePath);
+                        AddWordToList(filePath);
                         break;
                     case "3":
                         //DeleteWordFromList(filePath);
@@ -261,5 +261,41 @@ namespace GuessGame
             }
         }
 
+        /// <summary>
+        /// This method creates the passed in file path or adds to it if the file exists. Then it asks the user to input a word to be added to the list.
+        /// </summary>
+        /// <param name="filePath"> Name of text file with the word lists.</param>
+        private static void AddWordToList(string filePath)
+        {
+            Console.WriteLine(" Type in the word you want to add to your guessing list");
+            string word = Console.ReadLine().ToUpper();
+
+            if (!File.Exists(filePath))
+            {
+                using (FileStream fs = File.Create(filePath))
+                {
+                    Byte[] info = new UTF8Encoding(true).GetBytes(word);
+                    // Add word to the file.
+                    fs.Write(info, 0, info.Length);
+                }
+            }
+            else
+            {
+                try
+                {
+                    // Adding a new word to the guess word list by appending it on a new line.
+                    using (StreamWriter wordList = File.AppendText(filePath))
+                    {
+                        wordList.WriteLine(word);
+                    }
+                    Console.WriteLine($" --> Added {word} to the guess words list <--");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    throw;
+                }
+            }
+        }
     }
 }
