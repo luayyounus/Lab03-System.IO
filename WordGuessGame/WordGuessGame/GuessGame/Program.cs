@@ -227,5 +227,39 @@ namespace GuessGame
             string randomGuessWord = wordFile[randomNumber];
             return randomGuessWord;
         }
+
+        /// <summary>
+        /// Admin access to allow the user to Add/Delete/View guess words.
+        /// </summary>
+        private static void AdminAccess(string filePath)
+        {
+            bool adminIsDone = false;
+            while (!adminIsDone)
+            {
+                Console.WriteLine("\n Select an option from the Menu" +
+                                  "\n 1) View List of Words" +
+                                  "\n 2) Add word" +
+                                  "\n 3) Delete word" +
+                                  "\n 4) Go back to Main Menu");
+
+                string userInput = Console.ReadLine();
+                switch (userInput)
+                {
+                    case "1":
+                        //ViewListOfWords(filePath);
+                        break;
+                    case "2":
+                        //AddWordToList(filePath);
+                        break;
+                    case "3":
+                        //DeleteWordFromList(filePath);
+                        break;
+                    case "4":
+                        adminIsDone = true;
+                        break;
+                }
+            }
+        }
+
     }
 }
