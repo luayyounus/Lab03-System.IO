@@ -246,7 +246,7 @@ namespace GuessGame
                 switch (userInput)
                 {
                     case "1":
-                        //ViewListOfWords(filePath);
+                        ViewListOfWords(filePath);
                         break;
                     case "2":
                         AddWordToList(filePath);
@@ -258,6 +258,31 @@ namespace GuessGame
                         adminIsDone = true;
                         break;
                 }
+            }
+        }
+
+        /// <summary>
+        /// View list of guess words that exists in the words bank.
+        /// </summary>
+        /// <param name="filePath"> Name of text file with the word lists.</param>
+        private static void ViewListOfWords(string filePath)
+        {
+            try
+            {
+                using (StreamReader sr = File.OpenText(filePath))
+                {
+                    string word = "";
+
+                    // Read every line in file and present it on the console screen
+                    while ((word = sr.ReadLine()) != null)
+                    {
+                        Console.WriteLine(word);
+                    }
+                }
+            }
+            catch (FileNotFoundException e)
+            {
+                Console.WriteLine(" Please add new words to the game first.");
             }
         }
 
