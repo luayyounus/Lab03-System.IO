@@ -252,7 +252,7 @@ namespace GuessGame
                         AddWordToList(filePath);
                         break;
                     case "3":
-                        //DeleteWordFromList(filePath);
+                        DeleteWordFromList(filePath);
                         break;
                     case "4":
                         adminIsDone = true;
@@ -321,6 +321,36 @@ namespace GuessGame
                     throw;
                 }
             }
+        }
+
+        /// <summary>
+        /// Delete word from guess list file.
+        /// </summary>
+        /// <param name="filePath"> Name of text file with the word lists.</param>
+        private static void DeleteWordFromList(string filePath)
+        {
+            Console.WriteLine(" Type in the word you want to delete ");
+            string word = Console.ReadLine().ToUpper();
+
+            // Creating a temp file that we use to replace the original file after deleting
+            string tempFile = Path.GetTempFileName();
+
+            using (StreamReader sr = new StreamReader(filePath))
+            using (StreamWriter sw = new StreamWriter(tempFile))
+            {
+                string line;
+
+                // Matching line string with user input for deletion
+                while ((line = sr.ReadLine()) != null)
+                {
+                    if (line != word)
+                        sw.WriteLine(line);
+                }
+            }
+            // Delete the file used with Reader
+            File.Delete(filePath);
+            // Replacing the new file with previous Read file 
+            File.Move(tempFile, filePath);
         }
     }
 }
