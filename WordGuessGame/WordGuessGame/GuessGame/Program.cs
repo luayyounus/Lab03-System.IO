@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace GuessGame
@@ -132,7 +134,7 @@ namespace GuessGame
                 if (rgx.IsMatch(userInput.ToString()))
                 {
                     // Checking user entry against the guess word to update both progress and history.
-                    string[] tempResult = { };
+                    string[] tempResult = MatchGuess(userInput, randomWord, progress, history);
 
                     // Result of progress that is updated when user guesses right.
                     progress = tempResult[0];
@@ -159,6 +161,51 @@ namespace GuessGame
                 }
             }
             Console.WriteLine(attempts == 0 ? "\n\n You Lost...." : "\n\n You Won!");
+        }
+
+        /// <summary>
+        /// Match the user input with the guess word to update progress and history.
+        /// </summary>
+        /// <param name="userInput"> User character entry to match the guess word. </param>
+        /// <param name="guessWord"> The hidden guess word.</param>
+        /// <param name="progress"> Checking the progress and updating it.</param>
+        /// <param name="history"> Keeping track of incorrect entries. </param>
+        /// <returns>Returns Array that includes Progress at index 1, History at index 2.</returns>
+        private static string[] MatchGuess(char userInput, string guessWord, string progress, string history)
+        {
+            // Making progress and guess word arrays to match indexes and replace underscore '_' with correct characters.
+            char[] progressArray = progress.ToCharArray();
+            char[] guessWordArray = guessWord.ToCharArray();
+
+            // Array to return that holds both progress and history
+            string[] progressAndHistory = { progress, history };
+
+            if (guessWord.Contains(userInput))
+            {
+                for (int i = 0; i < guessWordArray.Length; i++)
+                {
+                    if (progress.Contains(userInput) || history.Contains(userInput))
+                        break;
+
+                    if (userInput == guessWordArray[i])
+                    {
+                        // Replace '_' with correct letter
+                        progressArray[i] = guessWordArray[i];
+                    }
+                }
+                progressAndHistory[0] = new string(progressArray);
+            }
+            else
+            {
+                // Update history of incorrect entries
+                if (!history.Contains(userInput))
+                {
+                    StringBuilder historyStringBuilder = new StringBuilder(history);
+                    historyStringBuilder.Append(userInput);
+                    progressAndHistory[1] = historyStringBuilder.ToString();
+                }
+            }
+            return progressAndHistory;
         }
     }
 }

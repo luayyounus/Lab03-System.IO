@@ -1,0 +1,4 @@
+C:\Users\Luay\Dropbox\401dotNet\Projects\Labs\Lab03-System.IO\WordGuessGame\WordGuessGame\GuessGame\obj\Debug\netcoreapp2.0\GuessGame.csprojResolveAssemblyReference.cache
+C:\Users\Luay\Dropbox\401dotNet\Projects\Labs\Lab03-System.IO\WordGuessGame\WordGuessGame\GuessGame\obj\Debug\netcoreapp2.0\GuessGame.csproj.CoreCompileInputs.cache
+C:\Users\Luay\Dropbox\401dotNet\Projects\Labs\Lab03-System.IO\WordGuessGame\WordGuessGame\GuessGame\obj\Debug\netcoreapp2.0\GuessGame.AssemblyInfoInputs.cache
+C:\Users\Luay\Dropbox\401dotNet\Projects\Labs\Lab03-System.IO\WordGuessGame\WordGuessGame\GuessGame\obj\Debug\netcoreapp2.0\GuessGame.AssemblyInfo.cs
