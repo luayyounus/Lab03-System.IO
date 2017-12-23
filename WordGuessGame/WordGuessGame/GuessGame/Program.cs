@@ -207,5 +207,25 @@ namespace GuessGame
             }
             return progressAndHistory;
         }
+
+        /// <summary>
+        /// This method returns a random name from the guess words list file.
+        /// </summary>
+        /// <param name="filePath">Name of text file with the word lists.</param>
+        /// <returns>Returns random guess word.</returns>
+        private static string GetRandomGuessWord(string filePath)
+        {
+            // Reading and counting number of lines in file
+            string[] wordFile = File.ReadAllLines(filePath);
+            int lineCount = wordFile.Length;
+
+            // Randomizing a number of maximum lines count from the filepath
+            Random random = new Random();
+            int randomNumber = random.Next(lineCount);
+
+            // Getting a word from a random line in file.
+            string randomGuessWord = wordFile[randomNumber];
+            return randomGuessWord;
+        }
     }
 }
