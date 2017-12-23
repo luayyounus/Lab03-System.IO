@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace GuessGame
 {
@@ -97,6 +98,67 @@ namespace GuessGame
                 }
             }
             Console.WriteLine();
+        }
+
+        /// <summary>
+        /// This method evaluate users input, keep track of their progress and incorrect entries. It also checks for invalid keyboard key entries.
+        /// </summary>
+        /// <param name="randomWord"></param>
+        private static void StartGame(string randomWord)
+        {
+            Console.WriteLine("\n Guess the following word \n ");
+
+            // Show progress of the user with underscores; Giving hint of guess word letters count.
+            string progress = new String('_', randomWord.Length);
+
+            // Incorrect entries initalized.
+            string history = "";
+
+            // Max number of wrong attempts before the user loses the game.
+            int attempts = 10;
+
+            // Showing the first progress which represents the starting underscores '_'.
+            ShowProgress(progress, history, attempts);
+
+            while (attempts != 0)
+            {
+                // Reading user's keyboard key to check against the guess word.
+                ConsoleKeyInfo key = Console.ReadKey();
+                char userInput = char.ToUpper(key.KeyChar);
+
+                // Regular expressino to limit the user to Alphabetic letters only.
+                Regex rgx = new Regex("^[A-Za-z]$");
+
+                if (rgx.IsMatch(userInput.ToString()))
+                {
+                    // Checking user entry against the guess word to update both progress and history.
+                    string[] tempResult = { };
+
+                    // Result of progress that is updated when user guesses right.
+                    progress = tempResult[0];
+
+                    // Checking if history changes, then update the attempts remaining.
+                    if (tempResult[1] != history)
+                    {
+                        attempts--;
+                        history = tempResult[1];
+                    }
+
+                    // Showing progress everytime the user enters a new character.
+                    ShowProgress(progress, history, attempts);
+
+                    // Checking if the user guessed the word to end the game!
+                    if (randomWord == progress)
+                    {
+                        break;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("\n Please enter an alphabet.");
+                }
+            }
+            Console.WriteLine(attempts == 0 ? "\n\n You Lost...." : "\n\n You Won!");
         }
     }
 }
