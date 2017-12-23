@@ -67,5 +67,36 @@ namespace GuessGame
             }
             return true;
         }
+
+        /// <summary>
+        /// Show progress of current game every time the user enters a new guess letter.
+        /// </summary>
+        /// <param name="progress"> Character list of Letters and dashes based on user progress.</param>
+        /// <param name="history" >Previous wrong entries by the user.</param>
+        /// <param name="attemptsLeft"> Attempts left before losing the game.</param>
+        private static void ShowProgress(string progress, string history, int attemptsLeft)
+        {
+            // Presenting the user progress letters/dashes
+            Console.Write("\n Current Progress: \t");
+            foreach (char c in progress)
+            {
+                Console.Write($"{c} ");
+            }
+
+            Console.Write($"\t Attempts Left: {attemptsLeft} \t");
+
+            // Checking whether the history is empty or not, meaning the user has made incorrect entries
+            if (!String.IsNullOrEmpty(history))
+            {
+                Console.Write($"Incorrect Guesses: ");
+
+                // Writing the history letters to the console.
+                foreach (var c in history)
+                {
+                    Console.Write($"{c} ");
+                }
+            }
+            Console.WriteLine();
+        }
     }
 }
